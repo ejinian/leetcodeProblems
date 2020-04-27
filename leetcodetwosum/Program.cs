@@ -18,7 +18,10 @@ namespace leetcodetwosum
             LetterComboPhoneNumberProblem letterComboPhoneNumberProblem = new LetterComboPhoneNumberProblem();
             StockArray stockArrayProblem = new StockArray();
             ClimbingStepsProblem climbingStepsProblem = new ClimbingStepsProblem();
-
+            RemoveElementTypeProblem removeElementTypeProblem = new RemoveElementTypeProblem();
+            ValidAnagram validAnagramProblem = new ValidAnagram();
+            ProductOfArrayExceptSelfProblem productOfArrayExceptSelfProblem = new ProductOfArrayExceptSelfProblem();
+            
             /*
             int[] nums = new int[] {2, 11, 14, 17};
             int target = 16;
@@ -60,8 +63,27 @@ namespace leetcodetwosum
             Console.WriteLine(stockArrayProblem.MaxProfit(prices));
             */
 
+            /*
             int n = 6;
             Console.WriteLine(climbingStepsProblem.ClimbStairs(n));
+            */
+
+            /*
+            int[] nums = new int[] { 3, 2, 2, 3 };
+            int val = 3;
+            Console.WriteLine(removeElementTypeProblem.RemoveElement(nums, val));
+            */
+
+            /*
+            string s = "rat";
+            string t = "car";
+            Console.WriteLine(validAnagramProblem.IsAnagram(s, t));
+            */
+
+            int[] nums = new int[] { 45, 903, 2 };
+            int[] result = productOfArrayExceptSelfProblem.ProductExceptSelf(nums);
+            result.ToList().ForEach(i => Console.WriteLine(i.ToString()));
+
             Console.ReadLine();
         }
     }
@@ -277,5 +299,85 @@ class ClimbingStepsProblem
             b = temp + b;
         }
         return b;
+    }
+}
+
+class RemoveElementTypeProblem
+{
+    public int RemoveElement(int[] nums, int val)
+    {
+        //   0  1  2  3
+        // { 3, 2, 2, 3}
+        int i = 0;
+        for (int j = 0; j < nums.Length; j++)
+        {
+            if (nums[j] != val)
+            {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;
+    }
+}
+
+class ValidAnagram
+{
+    public bool IsAnagram(string s, string t)
+    {   
+        char[] charArray = s.ToCharArray();
+        char[] charArray2 = t.ToCharArray();
+        Array.Sort(charArray);
+        Array.Sort(charArray2);
+        string turnBackS = new string(charArray);
+        string turnBackT = new string(charArray2);
+        if (string.Equals(turnBackS, turnBackT))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+}
+
+class ProductOfArrayExceptSelfProblem
+{
+    public int[] ProductExceptSelf(int[] nums)
+    {
+        int largestNumberSoFar = 0;
+        int leastCommonMultiple = 0;
+        int storeValueToDivide = 0;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] > largestNumberSoFar)
+            {
+                largestNumberSoFar = nums[i];
+            }
+        }
+        for (int j = 0; j < nums.Length; j++)
+        {
+            if (largestNumberSoFar % nums[j] != 0)
+            {
+                largestNumberSoFar++;
+                j = 0;
+                j--;
+            }
+            else
+            {
+                leastCommonMultiple = largestNumberSoFar;
+            }
+        }
+
+        int[] arrayWithNewValues = new int[nums.Length];
+        for (int k = 0; k < nums.Length; k++)
+        {
+            storeValueToDivide = leastCommonMultiple / nums[k];
+            arrayWithNewValues[k] = storeValueToDivide;
+        }
+        return arrayWithNewValues;
     }
 }
