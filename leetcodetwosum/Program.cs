@@ -159,7 +159,7 @@ namespace leetcodetwosum
             */
 
             Console.WriteLine(isSubsequence.IsSubsequence("bb", "abbc"));
-            Console.WriteLine(isSubsequence.CanConstruct("aa", "ab"));
+            Console.WriteLine(isSubsequence.CanConstruct("aab", "baa"));
 
             Console.ReadLine();
         }
@@ -809,36 +809,6 @@ class IsSubsequenceProblem
                 if (s[i] != t[j])
                 {
                     if (j == t.Length - 1)
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-    public bool CanConstruct(string ransomNote, string magazine)
-    {
-        int jStayTheSame = 0;
-        if (ransomNote.Length > magazine.Length) return false;
-        if (ransomNote.Length == magazine.Length) return ransomNote == magazine ? true : false;
-        for (int i = 0; i < ransomNote.Length;)
-        {
-            for (int j = jStayTheSame; j < magazine.Length; j++)
-            {
-                if (ransomNote[i] == magazine[j])
-                {
-                    if (i != ransomNote.Length - 1 && j == magazine.Length - 1)
-                    {
-                        return false;
-                    }
-                    i++;
-                    jStayTheSame = j + 1;
-                    break;
-                }
-                if (ransomNote[i] != magazine[j])
-                {
-                    if (j == magazine.Length - 1)
                     {
                         return false;
                     }
